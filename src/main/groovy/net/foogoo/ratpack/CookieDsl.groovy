@@ -6,7 +6,7 @@ import javax.servlet.http.Cookie
 class CookieDsl {
 
 	String name, value, domain, path, comment
-	int maxAge, version
+	int maxAge=-1, version
 	boolean secure = false
 	
 	def static bake(closure) {
@@ -21,12 +21,17 @@ class CookieDsl {
 	private static def createCookieFrom(cookieDsl) {
 		
 		Cookie cookie = new Cookie(cookieDsl.name, cookieDsl.value)		
-//		cookie.domain = cookieDsl.domain
-//		cookie.path = cookieDsl.path
-//		cookie.comment = cookieDsl.comment
-//		cookie.maxAge = cookieDsl.maxAge
-//		cookie.version = cookieDsl.version
-//		cookie.secure = cookieDsl.secure
+
+		if(cookieDsl.domain)
+			cookie.domain = cookieDsl.domain
+
+		if(cookieDsl.maxAge >= 0)
+			cookie.maxAge = cookieDsl.maxAge
+
+		cookie.path = cookieDsl.path
+		cookie.comment = cookieDsl.comment
+		cookie.version = cookieDsl.version
+		cookie.secure = cookieDsl.secure
 		
 		return cookie
 	}
@@ -40,7 +45,7 @@ class CookieDsl {
 	}
 	
 	def domain(String val) {
-		this.domain = value
+		this.domain = val
 	}
 	
 	def path(String val) {
@@ -62,11 +67,4 @@ class CookieDsl {
 	def secure() {
 		this.secure = true
 	}
-	
-	/*
-	def methodMissing(String methodName, args) {
-		def moo = new Moo(title: methodName, body: args[0])
-		moos << moo
-	}
-	*/
 }

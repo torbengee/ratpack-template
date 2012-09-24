@@ -7,8 +7,9 @@ get('/') {
 get('/person/:name') {
 
     addCookie {
-        name "last-person-viewed"
+        name 'last-person-viewed'
         value urlparams.name
+	maxAge 60
     }
       
     render('person.html', [name : urlparams.name])

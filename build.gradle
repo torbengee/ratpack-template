@@ -9,8 +9,13 @@ buildscript {
   }
 }
 
+repositories {
+  mavenLocal()
+}
+
 dependencies {
   groovy 'org.codehaus.groovy:groovy:1.8.6'
+  groovy 'com.augusttechgroup:ratpack-core:0.6-SNAPSHOT'
 }
 
 task wrapper(type: Wrapper) {
